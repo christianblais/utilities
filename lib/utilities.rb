@@ -13,9 +13,14 @@ class Range
   end  
   alias_method :&, :intersection
   
+  # Verify if self is empty
+  def empty?
+    count.zero?
+  end
+  
   # Detect if the two ranges overlap one with the other
   def overlap? range
-    !(self & range).count.zero?
+    !(self & range).nil?
   end
 end
 
