@@ -46,6 +46,11 @@ class String
 end
 
 class Numeric
+  # Convert to degrees
+  def degrees
+    self * Math::PI / 180
+  end
+  
   # Calculate the rank of self based on provided min and max
   def rank min, max
     s, min, max = self.to_f, min.to_f, max.to_f
@@ -67,9 +72,7 @@ module Utilities
   module Statistics
     # Add each object of the array to each other in order to get the sum, as long as all objects respond to + operator
     def sum
-      inject( nil ) do |sum, x|
-        sum ? sum + x : x
-      end
+      inject( :+ )
     end
     
     # Calculate the mean of the array, as long as all objects respond to / operator
@@ -100,7 +103,7 @@ module Utilities
       return nil if empty?
       a = sort unless already_sorted
       m_pos = size / 2
-      size % 2 == 1 ? a[m_pos] : a[m_pos-1..m_pos].mean
+      size % 2 == 1 ? a[m_pos] : a[m_pos-1..m_pos].extend(Utilities::Statistics).mean
     end
     
     # Return an array of modes with their corresponding occurences
@@ -111,7 +114,7 @@ module Utilities
     end
     
     # Return all statistics from the array in a simple hash
-    def stats
+    def statistics
       {
         :size => size,
         :sum => sum,
@@ -123,5 +126,6 @@ module Utilities
         :modes => modes
       }
     end
+    alias_method :stats, :statistics
   end
 end
