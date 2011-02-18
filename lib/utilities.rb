@@ -56,6 +56,16 @@ class Numeric
     self * Math::PI / 180
   end
   
+  # Return the square of self
+  def square
+    self * self
+  end
+  
+  # Return the square root of self
+  def sqrt
+    Math.sqrt(self)
+  end
+  
   # Calculate the rank of self based on provided min and max
   def rank min, max
     s, min, max = self.to_f, min.to_f, max.to_f
@@ -71,6 +81,7 @@ class Numeric
   def percentage_of n, t = 100
     n == 0 ? 0.0 : self / n.to_f * t
   end
+  alias_method :percent_of, :percentage_of
 end
 
 module Utilities
@@ -78,6 +89,16 @@ module Utilities
     # Add each object of the array to each other in order to get the sum, as long as all objects respond to + operator
     def sum
       inject( :+ )
+    end
+    
+    # Calculate squares of each item
+    def squares
+      map{ |i| i**2 }
+    end
+    
+    # Calculate square roots of each item
+    def sqrts
+      map{ |i| i.sqrt }
     end
     
     # Calculate the mean of the array, as long as all objects respond to / operator
@@ -91,24 +112,56 @@ module Utilities
       inject(Hash.new(0)) { |h, v| h[v] += 1; h }
     end
     
-    # Return the variance of the array
+    # Return the variance of self
     def variance
       m = mean
 	    inject(0) { |v, x| v += (x - m) ** 2 }
     end
     
-    # Return the standard deviation of the array
-    def standard_deviation
-	    size > 1 ? Math.sqrt( variance / ( size - 1 ) ) : 0.0
+    # Return the (sample|population) standard deviation of self
+    # If population is set to true, then we consider the dataset as the complete population
+    # Else, we consider the dataset as a sample, so we use the sample standard deviation (size - 1)
+    def standard_deviation( population = false )
+	    size > 1 ? Math.sqrt( variance / ( size - ( population ? 0 : 1 ) ) ) : 0.0
     end
     alias_method :std_dev, :standard_deviation
     
-    # Return the median of the array
-    def median(already_sorted=false)
+    # Return the median of sorted self
+    def median( already_sorted = false )
       return nil if empty?
-      a = sort unless already_sorted
+      a = sort_and_extend( already_sorted )
       m_pos = size / 2
-      size % 2 == 1 ? a[m_pos] : a[m_pos-1..m_pos].extend(Utilities::Statistics).mean
+      size % 2 == 1 ? a[m_pos] : (a[m_pos-1] + a[m_pos]).to_f / 2
+    end
+    alias_method :second_quartile, :median
+    
+    # Return the first quartile of self
+    def first_quartile( already_sorted = false )
+      return nil if empty?
+      a = already_sorted ? self : sort
+      a[0..((size / 2) - 1)].extend(Utilities::Statistics).median( true )
+    end
+    alias_method :lower_quartile, :first_quartile
+    
+    # Return the last quartile of self
+    def last_quartile( already_sorted = false )
+      return nil if empty?
+      a = already_sorted ? self : sort
+      a[((size / 2) + 1)..-1].extend(Utilities::Statistics).median( true )
+    end
+    alias_method :upper_quartile, :last_quartile
+    
+    # Return an array containing the first, the second and the last quartile of self
+    def quartiles( already_sorted = false )
+      a = sort_and_extend( already_sorted )
+      [a.first_quartile( true ), a.median( true ), a.last_quartile( true )]
+    end
+    
+    # Calculate the interquartile range of self
+    def interquartile_range( already_sorted = false )
+      return nil if empty?
+      a = sort_and_extend( already_sorted )
+      a.last_quartile - a.first_quartile
     end
     
     # Return an array of modes with their corresponding occurences
@@ -118,19 +171,50 @@ module Utilities
       freq.select { |k, f| f == max }
     end
     
-    # Return all statistics from the array in a simple hash
-    def statistics
+    # Return the midrange of sorted self
+    def midrange( already_sorted = false )
+      return nil if empty?
+      a = sort_and_extend( already_sorted )
+      (a.first + a.last) / 2.0
+    end
+    
+    # Return the statistical range of sorted self
+    def statistical_range( already_sorted = false )
+      return nil if empty?
+      a = sort_and_extend( already_sorted )
+      (a.last - a.first)
+    end
+    
+    # Return all statistics from self in a simple hash
+    def statistics( already_sorted = false )
+      sorted = sort_and_extend( already_sorted )
+      
       {
-        :size => size,
-        :sum => sum,
-        :min => min,
-        :max => max,
-        :mean => mean,
-        :standard_deviation => standard_deviation,
-        :median => median,
-        :modes => modes
+        :first => self.first,
+        :last => self.last,
+        :size => self.size,
+        :sum => self.sum,
+        :min => self.min,
+        :max => self.max,
+        :mean => self.mean,
+        :frequences => self.frequences,
+        :variance => self.variance,
+        :standard_deviation => self.standard_deviation,
+        :modes => self.modes,
+        
+        # Need to be sorted...
+        :median => sorted.median( true ),
+        :midrange => sorted.midrange( true ),
+        :statistical_range => sorted.statistical_range( true ),
+        :quartiles => sorted.quartiles( true ),
+        :interquartile_range => sorted.interquartile_range( true )
       }
     end
     alias_method :stats, :statistics
+    
+    protected
+      def sort_and_extend( already_sorted = false )
+        already_sorted ? self : sort.extend(Utilities::Statistics)
+      end
   end
 end
