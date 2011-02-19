@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "utilities"
   s.version     = Utilities::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Christian Blais", "Guillaume Malette"]
+  s.authors     = ["Christian Blais", "Guillaume Malette", "Louis-Mathieu Houle"]
   s.email       = ["christ.blais@gmail.com", "gmalette@gmail.com"]
   s.homepage    = "http://github.com/christianblais/utilities"
   s.summary     = "Few utilities include in all my projects"
