@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "utilities"
   s.version     = Utilities::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Christian Blais"]
-  s.email       = ["christ.blais@gmail.com"]
+  s.authors     = ["Christian Blais", "Guillaume Malette"]
+  s.email       = ["christ.blais@gmail.com", "gmalette@gmail.com"]
   s.homepage    = "http://github.com/christianblais/utilities"
   s.summary     = "Few utilities include in all my projects"
   s.description = "Few utilities include in all my projects, including a module for statistics, some to_date and to_time functions as well as intersection method for Range object."
