@@ -218,3 +218,15 @@ module Utilities
       end
   end
 end
+
+class Array
+  # Returns a copy of self that includes the Statistics methods
+  def to_stat
+    dup.to_stat!
+  end
+  
+  # Adds the statistics methods to self
+  def to_stat!
+    extend(Utilities::Statistics)
+  end
+end
