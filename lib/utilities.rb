@@ -84,7 +84,7 @@ class Numeric
   alias_method :percent_of, :percentage_of
 end
 
-module Utilities
+module Utilities  
   module Statistics
     # Add each object of the array to each other in order to get the sum, as long as all objects respond to + operator
     def sum
@@ -94,6 +94,13 @@ module Utilities
     # Calculate squares of each item
     def squares
       map{ |i| i**2 }
+    end
+    
+    # Return a new array containing the rank of each value
+    # Ex: [1, 2, 2, 8, 9] #=> [0.0, 1.5, 1.5, 3.0, 4.0]
+    def ranks( already_sorted = false )
+      a = already_sorted ? self : sort
+      map{ |i| (a.index(i) + a.rindex(i)) / 2.0 }
     end
     
     # Calculate square roots of each item
@@ -115,7 +122,7 @@ module Utilities
     # Return the variance of self
     def variance
       m = mean
-	    inject(0) { |v, x| v += (x - m) ** 2 }
+      inject(0) { |v, x| v += (x - m) ** 2 }
     end
     
     # Return the (sample|population) standard deviation of self
@@ -203,6 +210,7 @@ module Utilities
         :modes => self.modes,
         
         # Need to be sorted...
+        :ranks => sorted.ranks( true ),
         :median => sorted.median( true ),
         :midrange => sorted.midrange( true ),
         :statistical_range => sorted.statistical_range( true ),
@@ -220,6 +228,19 @@ module Utilities
 end
 
 class Array
+  
+  # Returns a copy of self reverse sorted
+  def reverse_sort
+    dup.rsort!
+  end
+  alias_method :rsort, :reverse_sort
+  
+  # Reverse sort self
+  def reverse_sort!
+    sort!{|x,y| y <=> x }
+  end
+  alias_method :rsort!, :reverse_sort!
+  
   # Returns a copy of self that includes the Statistics methods
   def to_stat
     dup.to_stat!
