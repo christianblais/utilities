@@ -61,6 +61,13 @@ class Numeric
     self * self
   end
   
+  #Transform self to a string formatted time (HH:MM) Ex: 14.5 => “14:30“
+  def hour_to_string delimiter = ':'
+    hour  = self.to_i
+    min   = "%02d" % (self.abs * 60 % 60).to_i
+    "#{hour}#{delimiter}#{min}"
+  end
+  
   # Return the square root of self
   def sqrt
     Math.sqrt(self)
@@ -84,11 +91,37 @@ class Numeric
   alias_method :percent_of, :percentage_of
 end
 
-module Utilities  
+module Utilities
+  module Submodules
+    # Find every submodules of an object.
+    def submodules
+      constants.collect{ |const_name| const_get(const_name) }.select{ |const| const.class == Module }
+    end
+  end
+  
+  module Subclasses    
+    # Find every subclass of an object.
+    def subclasses(direct = false)
+      classes = []
+      
+      if direct
+        ObjectSpace.each_object(Class) do |c|
+          classes << c if c.superclass == self
+        end
+      else
+        ObjectSpace.each_object(Class) do |c|
+          classes << c if c.ancestors.include?(self) and (c != self)
+        end
+      end
+      
+      classes
+    end
+  end
+  
   module Statistics
     # Add each object of the array to each other in order to get the sum, as long as all objects respond to + operator
     def sum
-      inject( :+ )
+      flatten.compact.inject( :+ )
     end
     
     # Calculate squares of each item
@@ -110,7 +143,8 @@ module Utilities
     
     # Calculate the mean of the array, as long as all objects respond to / operator
     def mean
-      (size > 0) ? sum.to_f / size : 0.0
+      a = flatten.compact
+      (a.size > 0) ? a.sum.to_f / a.size : 0.0
     end
     alias_method :average, :mean
     
@@ -228,6 +262,19 @@ module Utilities
 end
 
 class Array
+  # Returns true if the array contains only numerical values
+  def numerics?( allow_nil = false )
+    (allow_nil ? compact : self).reject{ |x| x.is_a?( Numeric ) }.empty?
+  end
+  alias_method :numeric?, :numerics?
+  alias_method :narray?, :numerics?
+  
+  # Transforms an array
+  def to_numerics( allow_nil = false )
+    map{|x|x.to_f}
+  end
+  alias_method :to_numeric, :to_numerics
+  alias_method :to_narray, :to_numerics
   
   # Returns a copy of self reverse sorted
   def reverse_sort

@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
     'README',
     'utilities.gemspec',
     'lib/utilities.rb',
-    'lib/version.rb']
+    'lib/version.rb',
+    'test/test_utilities.rb']
   
-  s.require_paths = ['lib']
+  s.require_paths = ['lib', 'test']
 end
