@@ -178,7 +178,7 @@ module Utilities
     
     # Return the first quartile of self
     def first_quartile( already_sorted = false )
-      return nil unless size >= 4
+      return nil if size < 4
       a = already_sorted ? self : sort
       a[0..((size / 2) - 1)].extend(Utilities::Statistics).median( true )
     end
@@ -186,7 +186,7 @@ module Utilities
     
     # Return the last quartile of self
     def last_quartile( already_sorted = false )
-      return nil unless size >= 4
+      return nil if size < 4
       a = already_sorted ? self : sort
       a[((size / 2) + 1)..-1].extend(Utilities::Statistics).median( true )
     end
@@ -200,7 +200,7 @@ module Utilities
     
     # Calculate the interquartile range of self
     def interquartile_range( already_sorted = false )
-      return nil unless size >= 4
+      return nil if size < 4
       a = sort_and_extend( already_sorted )
       a.last_quartile - a.first_quartile
     end
