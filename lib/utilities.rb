@@ -143,7 +143,7 @@ module Utilities
     
     # Calculate the mean of the array, as long as all objects respond to / operator
     def mean
-      a = flatten.compact
+      a = flatten.compact.to_stat
       (a.size > 0) ? a.sum.to_f / a.size : 0.0
     end
     alias_method :average, :mean
@@ -178,7 +178,7 @@ module Utilities
     
     # Return the first quartile of self
     def first_quartile( already_sorted = false )
-      return nil if empty?
+      return nil unless size >= 4
       a = already_sorted ? self : sort
       a[0..((size / 2) - 1)].extend(Utilities::Statistics).median( true )
     end
@@ -186,7 +186,7 @@ module Utilities
     
     # Return the last quartile of self
     def last_quartile( already_sorted = false )
-      return nil if empty?
+      return nil unless size >= 4
       a = already_sorted ? self : sort
       a[((size / 2) + 1)..-1].extend(Utilities::Statistics).median( true )
     end
@@ -200,7 +200,7 @@ module Utilities
     
     # Calculate the interquartile range of self
     def interquartile_range( already_sorted = false )
-      return nil if empty?
+      return nil unless size >= 4
       a = sort_and_extend( already_sorted )
       a.last_quartile - a.first_quartile
     end
@@ -270,8 +270,8 @@ class Array
   alias_method :narray?, :numerics?
   
   # Transforms an array
-  def to_numerics( allow_nil = false )
-    map{|x|x.to_f}
+  def to_numerics
+    map{ |x| x.to_f }
   end
   alias_method :to_numeric, :to_numerics
   alias_method :to_narray, :to_numerics
@@ -292,9 +292,11 @@ class Array
   def to_stat
     dup.to_stat!
   end
+  alias_method :to_stats, :to_stat
   
   # Adds the statistics methods to self
   def to_stat!
     extend(Utilities::Statistics)
   end
+  alias_method :to_stats!, :to_stat!
 end
