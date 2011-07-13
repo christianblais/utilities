@@ -34,7 +34,7 @@ class Range
   end
   
   # Adds cover? if not defined (like in previous rubies)
-  unless self.instance_methods.include(:cover?)
+  unless self.instance_methods.include?(:cover?)
     def cover? object
       ends = [self.first, self.last]
       ends.min <= object && object <= ends.max
