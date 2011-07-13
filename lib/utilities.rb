@@ -3,6 +3,14 @@ module Kernel
   def raiser o
     raise o.inspect
   end
+  
+  def within? enumerable
+    if enumerable.is_a? Range
+      enumerable.covers?(self)
+    else
+      enumerable.min <= self && self <= enumerable.max
+    end
+  end
 end
 
 class Range
@@ -21,6 +29,11 @@ class Range
   # Detect if the two ranges overlap one with the other
   def overlap? range
     !(self & range).nil?
+  end
+  
+  def covers? object
+    ends = [self.first, self.last]
+    ends.min <= object && object <= ends.max
   end
 end
 
