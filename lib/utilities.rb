@@ -3,10 +3,12 @@ module Kernel
   def raiser o
     raise o.inspect
   end
-  
+end
+
+class Object
   def within? enumerable
     if enumerable.is_a? Range
-      enumerable.covers?(self)
+      enumerable.cover?(self)
     else
       enumerable.min <= self && self <= enumerable.max
     end
@@ -31,9 +33,12 @@ class Range
     !(self & range).nil?
   end
   
-  def covers? object
-    ends = [self.first, self.last]
-    ends.min <= object && object <= ends.max
+  # Adds cover? if not defined (like in previous rubies)
+  unless self.instance_methods.include(:cover?)
+    def cover? object
+      ends = [self.first, self.last]
+      ends.min <= object && object <= ends.max
+    end
   end
 end
 
