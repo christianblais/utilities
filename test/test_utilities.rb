@@ -61,3 +61,12 @@ describe Numeric do
     100.percentage_of(50).should == 200
   end
 end
+
+describe Enumerable do
+  it "#collect_first should return the first collected elements" do
+    h = {:a => 1, :b => 2, :c => 3}
+    h.collect_first{|k, v| v if v == 2}.should == 2
+    h.collect_first(1){|k, v| v}.should == [1]
+    h.collect_first(2){|k, v| v}.should == [1, 2]
+  end
+end
