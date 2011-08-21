@@ -279,6 +279,13 @@ module Utilities
   end
 end
 
+class Hash
+  # Returns a new hash where {"a"=>1} becomes {:a=>1}
+  def symbolize_keys
+    each_with_object({}){ |(k,v),h| h[k.to_sym] = v }
+  end
+end
+
 class Array
   # Returns true if the array contains only numerical values
   def numerics?( allow_nil = false )
