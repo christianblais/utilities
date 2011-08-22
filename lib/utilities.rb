@@ -181,7 +181,7 @@ module Utilities
     # If population is set to true, then we consider the dataset as the complete population
     # Else, we consider the dataset as a sample, so we use the sample standard deviation (size - 1)
     def standard_deviation( population = false )
-	    size > 1 ? Math.sqrt( variance / ( size - ( population ? 0 : 1 ) ) ) : 0.0
+      size > 1 ? Math.sqrt( variance / ( size - ( population ? 0 : 1 ) ) ) : 0.0
     end
     alias_method :std_dev, :standard_deviation
     
