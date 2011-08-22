@@ -1,4 +1,4 @@
-require '../lib/utilities'
+require File.join(File.dirname(__FILE__), "..", "lib", "utilities")
 
 describe Range do
   it "#intersection should returns a range containing elements common to the two ranges, with no duplicates" do
