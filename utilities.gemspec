@@ -14,13 +14,7 @@ Gem::Specification.new do |s|
   s.summary     = "Few utilities include in all my projects"
   s.description = "Few utilities include in all my projects, including a module for statistics, some to_date and to_time functions as well as intersection method for Range object."
  
-  s.files = [
-    'LICENSE',
-    'README',
-    'utilities.gemspec',
-    'lib/utilities.rb',
-    'lib/version.rb',
-    'test/test_utilities.rb']
+  s.files = `git ls-files`.split("\n")
   
   s.require_paths = ['lib', 'test']
 end
