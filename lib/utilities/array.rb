@@ -6,9 +6,9 @@ class Array
   alias_method :numeric?, :numerics?
   alias_method :narray?, :numerics?
   
-  # Transforms an array
-  def to_numerics
-    map{ |x| x.to_f }
+  # Transforms an array to an array of float values
+  def to_numerics( allow_nil = false )
+    map{ |x| allow_nil && x.nil? ? nil : x.to_f }
   end
   alias_method :to_numeric, :to_numerics
   alias_method :to_narray, :to_numerics
