@@ -77,33 +77,33 @@ Usage
 
         48.percentage_of(50) #=> 96
 
-##### Utilities
+#### Utilities
 * Statistics
 
     This module is intended to provide basic statistic functionnalities to numeric arrays. You may either
     call [].to_stats or extend an existing array with Utilities::Statistics module.
 
-    ** sum
+    * sum
     
         [1,2,3].sum #=> 6
     
-    ** squares
+    * squares
         
         [1,2,3].squares #=> [1,4,9]
     
-    ** sqrts
+    * sqrts
     
         [9,16,25].sqrts #=> [3,4,5]
     
-    ** mean
+    * mean
     
         [1,2,3,4,5].mean #=> 3
     
-    ** frequences
+    * frequences
     
         [1,1,2,3,3,3,4].frequences #=> {1=>2, 2=>1, 3=>3, 4=>1}
     
-    ** modes
+    * modes
     
         [1,2,3,3,4,4,4,5].modes #=> {4=>3}
 
