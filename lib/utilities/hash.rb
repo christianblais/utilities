@@ -15,4 +15,9 @@ class Hash
   def symbolize_keys
     collect_keys{ |k| k.to_sym }
   end
+  
+  # Returns a new hash where all keys have been stringified
+  def stringify_keys
+    collect_keys{ |k| k.to_s }
+  end
 end
