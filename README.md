@@ -108,6 +108,7 @@ Usage
             [1,2,3,3,4,4,4,5].modes #=> {4=>3}
     
     * statistics
+    
             [1,2,3,4,5].statistics #=> {
               :first=>1,
               :last=>5,
