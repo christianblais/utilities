@@ -6,12 +6,16 @@ Installation
 ------------
     gem install utilities
 
+Test
+----
+    rspec test/test_utilities
+
 Usage
 -----
 #### Array
 * to_numerics
 
-    ["3", 4, "7.9"].to_numerics #=> [3.0, 4.0, 7.9]
+        ["3", 4, "7.9"].to_numerics #=> [3.0, 4.0, 7.9]
     
 * numerics?
 
