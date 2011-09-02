@@ -48,6 +48,10 @@ describe Hash do
   it "#symbolize_keys should returns a new hash where all keys have been symbolized" do
     {"a"=>1, "b"=>2, "c"=>3}.symbolize_keys.should == {:a=>1, :b=>2, :c=>3}
   end
+  
+  it "#stringify_keys should returns a new hash where all keys have been stringified" do
+    {:a=>1, :b=>2, :c=>3}.stringify_keys.should == {"a"=>1, "b"=>2, "c"=>3}
+  end
 end
 
 describe Kernel do
@@ -123,5 +127,33 @@ describe Range do
     (1..5).overlap?(4..9).should == true
     (1..5).overlap?(5..10).should == true
     (1...5).overlap?(5..10).should == false
+  end
+end
+
+describe Utilities::Statistics do
+  it "#statistics should returns a hash with all statistics included" do
+    [1,2,3,4,5].to_stats.statistics.should == {
+      :first=>1,
+      :last=>5,
+      :size=>5,
+      :sum=>15,
+      :squares=>[1, 4, 9, 16, 25],
+      :sqrts=>[1.0, 1.4142135623730951, 1.7320508075688772, 2.0, 2.23606797749979],
+      :min=>1,population sample  variance
+      :max=>5,
+      :mean=>3.0,
+      :frequences=>{1=>1, 2=>1, 3=>1, 4=>1, 5=>1},
+      :variance=>2.5,
+      :standard_deviation=>1.5811388300841898,
+      :population_variance=>2.0,
+      :population_standard_deviation=>1.4142135623730951,
+      :modes=>{1=>1, 2=>1, 3=>1, 4=>1, 5=>1},
+      :ranks=>[0.0, 1.0, 2.0, 3.0, 4.0],
+      :median=>3,
+      :midrange=>3.0,
+      :statistical_range=>4,
+      :quartiles=>[1.5, 3, 4.5],
+      :interquartile_range=>3.0
+    }
   end
 end
