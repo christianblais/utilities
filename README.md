@@ -106,4 +106,29 @@ Usage
     * modes
     
             [1,2,3,3,4,4,4,5].modes #=> {4=>3}
+    
+    * statistics
+            [1,2,3,4,5].statistics #=> {
+              :first=>1,
+              :last=>5,
+              :size=>5,
+              :sum=>15,
+              :squares=>[1, 4, 9, 16, 25],
+              :sqrts=>[1.0, 1.4142135623730951, 1.7320508075688772, 2.0, 2.23606797749979],
+              :min=>1,population sample  variance
+              :max=>5,
+              :mean=>3.0,
+              :frequences=>{1=>1, 2=>1, 3=>1, 4=>1, 5=>1},
+              :variance=>2.5,
+              :standard_deviation=>1.5811388300841898,
+              :population_variance=>2.0,
+              :population_standard_deviation=>1.4142135623730951,
+              :modes=>{1=>1, 2=>1, 3=>1, 4=>1, 5=>1},
+              :ranks=>[0.0, 1.0, 2.0, 3.0, 4.0],
+              :median=>3,
+              :midrange=>3.0,
+              :statistical_range=>4,
+              :quartiles=>[1.5, 3, 4.5],
+              :interquartile_range=>3.0
+            }
 
