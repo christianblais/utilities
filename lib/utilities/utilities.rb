@@ -112,10 +112,10 @@ module Utilities
       a.last_quartile - a.first_quartile
     end
     
-    # Return an array of modes with their corresponding occurences
+    # Return a hash of modes with their corresponding occurences
     def modes
       fre = frequences
-      max = freq.values.max
+      max = fre.values.max
       fre.select{ |k, f| f == max }
     end
     
