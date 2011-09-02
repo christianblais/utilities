@@ -61,16 +61,16 @@ module Utilities
     end
     
     # Return the variance of self
-    def variance
-      m = mean
-      inject(0) { |v, x| v += (x - m) ** 2 }
+    def variance( population = false )
+      m = mean.to_f
+      collect{|v| (v - mean).square  }.to_stats.sum / (size - (population ? 0 : 1))
     end
     
     # Return the (sample|population) standard deviation of self
     # If population is set to true, then we consider the dataset as the complete population
     # Else, we consider the dataset as a sample, so we use the sample standard deviation (size - 1)
     def standard_deviation( population = false )
-      size > 1 ? Math.sqrt( variance / ( size - ( population ? 0 : 1 ) ) ) : 0.0
+      size > 1 ? Math.sqrt( variance( population ) ) : 0.0
     end
     alias_method :std_dev, :standard_deviation
     
@@ -142,12 +142,16 @@ module Utilities
         :last => self.last,
         :size => self.size,
         :sum => self.sum,
+        :squares => self.squares,
+        :sqrts => self.sqrts,
         :min => self.min,
         :max => self.max,
         :mean => self.mean,
         :frequences => self.frequences,
         :variance => self.variance,
         :standard_deviation => self.standard_deviation,
+        :population_variance => self.variance(true),
+        :population_standard_deviation => self.standard_deviation(true),
         :modes => self.modes,
         
         # Need to be sorted...
