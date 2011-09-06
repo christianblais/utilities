@@ -130,6 +130,13 @@ describe Range do
   end
 end
 
+describe String do
+  it "#hour_to_float should returns a float represention of the hour" do
+    "14:30".hour_to_float.should == 14.5
+    "03h12".hour_to_float('h').should == 3.2
+  end
+end
+
 describe Utilities::Statistics do
   it "#statistics should returns a hash with all statistics included" do
     [1,2,3,4,5].to_stats.statistics.should == {
@@ -139,7 +146,7 @@ describe Utilities::Statistics do
       :sum=>15,
       :squares=>[1, 4, 9, 16, 25],
       :sqrts=>[1.0, 1.4142135623730951, 1.7320508075688772, 2.0, 2.23606797749979],
-      :min=>1,population sample  variance
+      :min=>1,
       :max=>5,
       :mean=>3.0,
       :frequences=>{1=>1, 2=>1, 3=>1, 4=>1, 5=>1},
