@@ -21,6 +21,15 @@ describe Array do
     ["f", "3", "z"].reverse_sort.should == ["z", "f", "3"]
   end
   
+  it "#map_with should zip *args together and yield &block on them" do
+    a = [1,2,3]
+    b = [4,5,6]
+    c = [7,8,9]
+    
+    a.map_with(b){ |i,j| i*j }.should == [4,10,18]
+    a.map_with(b, c){ |i,j,k| i + j + k }.should == [12,15,18]
+  end
+  
   it "#to_stat should extends given array with module Utilities::Statistics" do
     [].methods.include?(:statistics).should == false
     [].to_stat.methods.include?(:statistics).should == true

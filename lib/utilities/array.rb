@@ -25,6 +25,11 @@ class Array
   end
   alias_method :rsort!, :reverse_sort!
   
+  # Zip *args then call &block
+  def map_with( *args, &block )
+    zip(*args).map{|i| yield i }
+  end
+  
   # Returns a copy of self that includes the Statistics methods
   def to_stat
     dup.to_stat!
