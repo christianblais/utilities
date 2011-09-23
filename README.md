@@ -25,6 +25,10 @@ Usage
 
         [1,8,3].reverse_sort #=> [8,3,1]
 
+* map_with
+
+        [1,2,3].map_with([4,5,6]){|i,j| i * j }  #=> [4,10,18]
+
 #### Enumerable
 * collect_first
 
@@ -42,6 +46,10 @@ Usage
 * symbolize_keys
 
         {"a"=>1, "b"=>2}.symbolize_keys #=> {:a=>1, :b=>2}
+
+* stringify_keys
+
+        {:a=>1, :b=>2}.stringify_keys #=> {"a"=>1, "b"=>2}
 
 #### Kernel
 * raiser
