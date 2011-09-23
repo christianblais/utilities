@@ -135,6 +135,16 @@ describe String do
     "14:30".hour_to_float.should == 14.5
     "03h12".hour_to_float('h').should == 3.2
   end
+
+  it "#float? check if self is a valid float or not" do
+    "123.456".float?.should == true
+    "1".float?.should == true
+    ".456".float?.should == true
+    "hello 123.456 world".float?.should == false
+    "hello world".float?.should == false
+    "123.456 hello".float?.should == false
+    "hello 123.456".float?.should == false
+  end
 end
 
 describe Utilities::Statistics do
