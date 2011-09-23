@@ -14,4 +14,9 @@ class String
     m, s = self.split(separator).map(&:to_f)
     m + (s / 60)
   end
+
+  # Check if String is a valid float
+  def float?
+    !!Float(self) rescue false
+  end
 end
