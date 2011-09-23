@@ -77,6 +77,15 @@ Usage
 
         48.percentage_of(50) #=> 96
 
+#### String
+* hour_to_float
+
+        "14:30".hour_to_float #=> 14.5
+
+* float?
+
+        "123.456".float? #=> true
+
 #### Utilities
 * Statistics
 
