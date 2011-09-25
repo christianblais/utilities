@@ -48,18 +48,26 @@ end
 describe Hash do
   it "#collect_keys should returns a new hash with the results of running block once for every key in self" do
     {"a"=>1, "b"=>2, "c"=>3}.collect_keys{|k| k + "z"}.should == {"az"=>1, "bz"=>2, "cz"=>3}
+    {"a"=>1, "b"=>{"c"=>3}}.collect_keys{|k| k + "z"}.should == {"az"=>1, "bz"=>{"c"=>3}}
+    {"a"=>1, "b"=>{"c"=>3}}.collect_keys(true){|k| k + "z"}.should == {"az"=>1, "bz"=>{"cz"=>3}}
   end
   
   it "#collect_values should returns a new hash with the results of running block once for every value in self" do
     {"a"=>1, "b"=>2, "c"=>3}.collect_values{|v| v**2}.should == {"a"=>1, "b"=>4, "c"=>9}
+    lambda{ {"a"=>1, "b"=>{"c"=>3}}.collect_values{|v| v**2}.should raise_error( NoMethodError ) }
+    {"a"=>1, "b"=>{"c"=>3}}.collect_values(true){|v| v**2}.should == {"a"=>1, "b"=>{"c"=>9}}
   end
   
   it "#symbolize_keys should returns a new hash where all keys have been symbolized" do
     {"a"=>1, "b"=>2, "c"=>3}.symbolize_keys.should == {:a=>1, :b=>2, :c=>3}
+    {"a"=>1, "b"=>{"c"=>3}}.symbolize_keys.should == {:a=>1, :b=>{"c"=>3}}
+    {"a"=>1, "b"=>{"c"=>3}}.symbolize_keys(true).should == {:a=>1, :b=>{:c=>3}}
   end
   
   it "#stringify_keys should returns a new hash where all keys have been stringified" do
     {:a=>1, :b=>2, :c=>3}.stringify_keys.should == {"a"=>1, "b"=>2, "c"=>3}
+    {:a=>1, :b=>{:c=>3}}.stringify_keys.should == {"a"=>1, "b"=>{:c=>3}}
+    {:a=>1, :b=>{:c=>3}}.stringify_keys(true).should == {"a"=>1, "b"=>{"c"=>3}}
   end
 end
 
