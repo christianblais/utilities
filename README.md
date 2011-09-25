@@ -35,11 +35,11 @@ Usage
         {:a=>1, :b=>2, :c=>3}.collect_first{|k,v| [k, v * 3] if v == 2 } #=> [:b, 6]
 
 #### Hash
-* collect_keys
+* collect_keys, map_keys (passing true as a parameter will collect keys recursively)
 
         {:a=>1, :b=>2, :c=>3}.collect_keys{|k| k.to_s.upcase } #=> {"A"=>1, "B"=>2, "C"=>3}
     
-* collect_values
+* collect_values, map_values (passing true as a parameter will collect values recursively)
 
         {:a=>1, :b=>2, :c=>3}.collect_values{|v| v * -1 } #=> {:a=>-1, :b=>-2, :c=>-3}
 
