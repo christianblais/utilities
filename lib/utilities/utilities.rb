@@ -63,7 +63,7 @@ module Utilities
     # Return the variance of self
     def variance( population = false )
       m = mean.to_f
-      collect{|v| (v - mean).square  }.to_stats.sum / (size - (population ? 0 : 1))
+      collect{|v| (v - m).square }.to_stats.sum / (size - (population ? 0 : 1))
     end
     
     # Return the (sample|population) standard deviation of self
