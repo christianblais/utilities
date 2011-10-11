@@ -85,6 +85,14 @@ Usage
 
         48.percentage_of(50) #=> 96
 
+#### Object
+* attempt
+
+    Attempts to call a method on given object. If it fails (nil or NoMethodError), returns nil
+
+        nil.attempt(:something) #=> nil
+        "String".attempt(:wrong_method_name) #=> nil
+
 #### String
 * hour_to_float
 
