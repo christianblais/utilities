@@ -1,4 +1,4 @@
-class Utilities
+module Utilities
   MAJOR = 0
   MINOR = 0
   BUILD = 21
