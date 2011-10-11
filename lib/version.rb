@@ -1,7 +1,7 @@
 class Utilities
   MAJOR = 0
   MINOR = 0
-  BUILD = 20
+  BUILD = 21
 
   VERSION = "#{MAJOR}.#{MINOR}.#{BUILD}"
 end
