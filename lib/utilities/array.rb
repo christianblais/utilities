@@ -41,4 +41,10 @@ class Array
     extend(Utilities::Statistics)
   end
   alias_method :to_stats!, :to_stat!
+  
+  def wrap left_and_right, right = nil
+    left_and_right = left_and_right.to_s
+    right = right.nil? ? left_and_right : right.to_s
+    map {|item| [left_and_right.to_s, item.to_s, right.to_s].join}
+  end
 end

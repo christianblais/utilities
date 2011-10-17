@@ -34,6 +34,14 @@ describe Array do
     [].methods.include?(:statistics).should == false
     [].to_stat.methods.include?(:statistics).should == true
   end
+  
+  it "#wrap should wrap the array as strings with the given parameters" do
+    a = [1, 2, 3]
+    b = ["a", "b", "c"]
+    
+    a.wrap("t").should == ["t1t", "t2t", "t3t"]
+    b.wrap("c", "d").should == ["cad", "cbd", "ccd"]
+  end
 end
 
 describe Enumerable do
