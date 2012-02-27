@@ -98,6 +98,14 @@ Usage
         nil.attempt(:something) #=> nil
         "String".attempt(:wrong_method_name) #=> nil
 
+* is_one?
+    
+    Returns true if object is one of the passed classes
+
+        {}.is_one?(Array, Hash, Class) #=> true
+        "".is_one?(Array) #=> false
+    
+
 #### String
 * hour_to_float
 

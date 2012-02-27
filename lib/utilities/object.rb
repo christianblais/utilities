@@ -15,4 +15,10 @@ class Object
       nil
     end
   end
+
+  def is_one?(*args)
+    args.any? do |klass|
+      self.is_a? klass
+    end
+  end
 end
