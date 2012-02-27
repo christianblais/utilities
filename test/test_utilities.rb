@@ -201,10 +201,10 @@ describe Utilities::Statistics do
 end
 
 describe Object do
-  it "#is_one? should return true if object is in the classes and false otherwise" do
-    {:a => :b}.is_one?(Hash, Class).should be_true
-    [].is_one?(Hash, Class).should be_false
-    [].is_one?(Array).should be_true
-    "".is_one?(Array).should be_false
+  it "#is_any? should return true if object is in the classes and false otherwise" do
+    {:a => :b}.is_any?(Hash, Class).should be_true
+    [].is_any?(Hash, Class).should be_false
+    [].is_any?(Array).should be_true
+    "".is_any?(Array).should be_false
   end
 end

@@ -16,7 +16,7 @@ class Object
     end
   end
 
-  def is_one?(*args)
+  def is_any?(*args)
     args.any? do |klass|
       self.is_a? klass
     end
