@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Utilities by christianblais</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Utilities</h1>
+        <p>Utilities provides a handful of useful goodies including statistics, numeric arrays and the well-known raiser.</p>
+        <p class="view"><a href="https://github.com/christianblais/utilities">View the Project on GitHub <small>christianblais/utilities</small></a></p>
+        <ul>
+          <li><a href="https://github.com/christianblais/utilities/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/christianblais/utilities/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/christianblais/utilities">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Installation</h2>
+
+<pre><code>gem install utilities
+</code></pre>
+
+<h2>Test</h2>
+
+<pre><code>rspec test/test_utilities
+</code></pre>
+
+<h2>Usage</h2>
+
+<h4>Array</h4>
+
+<ul>
+<li>
+<p>to_numerics</p>
+
+<pre><code>["3", 4, "7.9"].to_numerics #=&gt; [3.0, 4.0, 7.9]
+</code></pre>
+</li>
+<li>
+<p>numerics?</p>
+
+<pre><code>[1, 2.0, 3].numerics? #=&gt; true
+</code></pre>
+</li>
+<li>
+<p>reverse_sort</p>
+
+<pre><code>[1,8,3].reverse_sort #=&gt; [8,3,1]
+</code></pre>
+</li>
+<li>
+<p>map_with</p>
+
+<pre><code>[1,2,3].map_with([4,5,6]){|i,j| i * j }  #=&gt; [4,10,18]
+</code></pre>
+</li>
+<li>
+<p>wrap</p>
+
+<pre><code>[1, 2, 3].wrap("*") #=&gt; ["*1*", "*2*", "*3*"]
+[1, 2, 3].wrap("*", "+") #=&gt; ["*1+", "*2+", "*3+"]
+</code></pre>
+</li>
+</ul><h4>Enumerable</h4>
+
+<ul>
+<li>
+<p>collect_first</p>
+
+<pre><code>{:a=&gt;1, :b=&gt;2, :c=&gt;3}.collect_first{|k,v| [k, v * 3] if v == 2 } #=&gt; [:b, 6]
+</code></pre>
+</li>
+</ul><h4>Hash</h4>
+
+<ul>
+<li>
+<p>collect_keys, map_keys (passing true as a parameter will collect keys recursively)</p>
+
+<pre><code>{:a=&gt;1, :b=&gt;2, :c=&gt;3}.collect_keys{|k| k.to_s.upcase } #=&gt; {"A"=&gt;1, "B"=&gt;2, "C"=&gt;3}
+</code></pre>
+</li>
+<li>
+<p>collect_values, map_values (passing true as a parameter will collect values recursively)</p>
+
+<pre><code>{:a=&gt;1, :b=&gt;2, :c=&gt;3}.collect_values{|v| v * -1 } #=&gt; {:a=&gt;-1, :b=&gt;-2, :c=&gt;-3}
+</code></pre>
+</li>
+<li>
+<p>symbolize_keys</p>
+
+<pre><code>{"a"=&gt;1, "b"=&gt;2}.symbolize_keys #=&gt; {:a=&gt;1, :b=&gt;2}
+</code></pre>
+</li>
+<li>
+<p>stringify_keys</p>
+
+<pre><code>{:a=&gt;1, :b=&gt;2}.stringify_keys #=&gt; {"a"=&gt;1, "b"=&gt;2}
+</code></pre>
+</li>
+</ul><h4>Kernel</h4>
+
+<ul>
+<li>
+<p>raiser</p>
+
+<pre><code>raiser 1, Hash.new, Array.new #=&gt; RuntimeError "1, {}, []"
+</code></pre>
+</li>
+</ul><h4>Numeric</h4>
+
+<ul>
+<li>
+<p>degrees</p>
+
+<pre><code>180.degrees == Math::PI #=&gt; true
+</code></pre>
+</li>
+<li>
+<p>square</p>
+
+<pre><code>2.square #=&gt; 4
+</code></pre>
+</li>
+<li>
+<p>hour_to_string</p>
+
+<pre><code>14.5.hour_to_string #=&gt; "14:30"
+</code></pre>
+</li>
+<li>
+<p>sqrt</p>
+
+<pre><code>9.sqrt #=&gt; 3
+</code></pre>
+</li>
+<li>
+<p>rank</p>
+
+<pre><code>5.rank(3, 9) #=&gt; 0.3333...
+</code></pre>
+</li>
+<li>
+<p>to_decimals</p>
+
+<pre><code>1.759.to_decimals(2) #=&gt; 1.76
+</code></pre>
+</li>
+<li>
+<p>percentage_of</p>
+
+<pre><code>48.percentage_of(50) #=&gt; 96
+</code></pre>
+</li>
+</ul><h4>Object</h4>
+
+<ul>
+<li>
+<p>attempt</p>
+
+<p>Attempts to call a method on given object. If it fails (nil or NoMethodError), returns nil</p>
+
+<pre><code>nil.attempt(:something) #=&gt; nil
+"String".attempt(:wrong_method_name) #=&gt; nil
+</code></pre>
+</li>
+<li>
+<p>is_any?</p>
+
+<p>Returns true if object is one of the passed classes</p>
+
+<pre><code>{}.is_any?(Array, Hash, Class) #=&gt; true
+"".is_any?(Array) #=&gt; false
+</code></pre>
+</li>
+</ul><h4>String</h4>
+
+<ul>
+<li>
+<p>hour_to_float</p>
+
+<pre><code>"14:30".hour_to_float #=&gt; 14.5
+</code></pre>
+</li>
+<li>
+<p>float?</p>
+
+<pre><code>"123.456".float? #=&gt; true
+</code></pre>
+</li>
+</ul><h4>Utilities</h4>
+
+<ul>
+<li>
+<p>Statistics</p>
+
+<p>This module is intended to provide basic statistic functionnalities to numeric arrays. You may either
+call [].to_stats or extend an existing array with Utilities::Statistics module.</p>
+
+<ul>
+<li>
+<p>sum</p>
+
+<pre><code>[1,2,3].sum #=&gt; 6
+</code></pre>
+</li>
+<li>
+<p>squares</p>
+
+<pre><code>[1,2,3].squares #=&gt; [1,4,9]
+</code></pre>
+</li>
+<li>
+<p>sqrts</p>
+
+<pre><code>[9,16,25].sqrts #=&gt; [3,4,5]
+</code></pre>
+</li>
+<li>
+<p>mean</p>
+
+<pre><code>[1,2,3,4,5].mean #=&gt; 3
+</code></pre>
+</li>
+<li>
+<p>frequences</p>
+
+<pre><code>[1,1,2,3,3,3,4].frequences #=&gt; {1=&gt;2, 2=&gt;1, 3=&gt;3, 4=&gt;1}
+</code></pre>
+</li>
+<li>
+<p>modes</p>
+
+<pre><code>[1,2,3,3,4,4,4,5].modes #=&gt; {4=&gt;3}
+</code></pre>
+</li>
+<li>
+<p>statistics</p>
+
+<pre><code>[1,2,3,4,5].statistics #=&gt; {
+  :first=&gt;1,
+  :last=&gt;5,
+  :size=&gt;5,
+  :sum=&gt;15,
+  :squares=&gt;[1, 4, 9, 16, 25],
+  :sqrts=&gt;[1.0, 1.4142135623730951, 1.7320508075688772, 2.0, 2.23606797749979],
+  :min=&gt;1,
+  :max=&gt;5,
+  :mean=&gt;3.0,
+  :frequences=&gt;{1=&gt;1, 2=&gt;1, 3=&gt;1, 4=&gt;1, 5=&gt;1},
+  :variance=&gt;2.5,
+  :standard_deviation=&gt;1.5811388300841898,
+  :population_variance=&gt;2.0,
+  :population_standard_deviation=&gt;1.4142135623730951,
+  :modes=&gt;{1=&gt;1, 2=&gt;1, 3=&gt;1, 4=&gt;1, 5=&gt;1},
+  :ranks=&gt;[0.0, 1.0, 2.0, 3.0, 4.0],
+  :median=&gt;3,
+  :midrange=&gt;3.0,
+  :statistical_range=&gt;4,
+  :quartiles=&gt;[1.5, 3, 4.5],
+  :interquartile_range=&gt;3.0
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/christianblais">christianblais</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
