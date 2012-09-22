@@ -173,8 +173,109 @@ describe String do
 end
 
 describe Utilities::Statistics do
+  before(:all) do
+    class Array
+      include Utilities::Statistics
+    end
+  end
+
+  it "#first should returns the first element" do
+    [].first.should == nil
+    [4,3,5,1,2].first.should == 4
+  end
+
+  it "#last should returns the last element" do
+    [].last.should == nil
+    [4,3,5,1,2].last.should == 2
+  end
+
+  it "#size should returns the last element" do
+    [].size.should == 0
+    [4,3,5,1,2].size.should == 5
+  end
+
+  it "#sum should returns the last element" do
+    [].sum.should == 0
+    [4,3,5,1,2].sum.should == 15
+  end
+
+  it "#squares should returns the square of all elements" do
+    [].squares.should == []
+    [1,2,3,4,5].squares.should == [1, 4, 9, 16, 25]
+  end
+
+  it "#sqrts should returns the square root of all elements" do
+    [].sqrts.should == []
+    [1,2,3,4,5].sqrts.should == [1.0, 1.4142135623730951, 1.7320508075688772, 2.0, 2.23606797749979]
+  end
+
+  it "#min should return the smallest element" do
+    [].min.should == nil
+    [1,2,3,4,5].min.should == 1
+  end
+
+  it "#max should returns the biggest element" do
+    [].max.should == nil
+    [1,2,3,4,5].max.should == 5
+  end
+
+  it "#mean should returns the mean of all elements" do
+    [].mean.should == nil
+    [1,2,3,4,5].mean.should == 3
+  end
+
+  it "#frequences should returns the mean of all elements" do
+    [].frequences.should == {}
+    [1,2,3,4,5].frequences.should == {1=>1, 2=>1, 3=>1, 4=>1, 5=>1}
+  end
+
+  it "#variance should returns the mean of all elements" do
+    [].variance.should == nil
+    [1,2,3,4,5].variance.should == 2.5
+  end
+
+  it "#standard_deviation should returns the mean of all elements" do
+    [].standard_deviation.should == nil
+    [4387].standard_deviation.should == 0
+    [1,2,3,4,5].standard_deviation.should == 1.5811388300841898
+  end
+
+  it "#median should returns the median of all elements" do
+    [].median.should == nil
+    [1,2,3,4,5].median.should == 3
+  end
+
+  it "#modes should returns all modes" do
+    [].modes.should == {}
+    [1,2,3,4,5].modes.should == {1=>1, 2=>1, 3=>1, 4=>1, 5=>1}
+  end
+
   it "#statistics should returns a hash with all statistics included" do
-    [1,2,3,4,5].to_stats.statistics.should == {
+    [].statistics.should == {
+      :first=>nil,
+      :last=>nil,
+      :size=>0,
+      :sum=>0,
+      :squares=>[],
+      :sqrts=>[],
+      :min=>nil,
+      :max=>nil,
+      :mean=>nil,
+      :frequences=>{},
+      :variance=>nil,
+      :standard_deviation=>nil,
+      :population_variance=>nil,
+      :population_standard_deviation=>nil,
+      :modes=>{},
+      :ranks=>[],
+      :median=>nil,
+      :midrange=>nil,
+      :statistical_range=>nil,
+      :quartiles=>[nil, nil, nil],
+      :interquartile_range=>nil
+    }
+
+    [1,2,3,4,5].statistics.should == {
       :first=>1,
       :last=>5,
       :size=>5,

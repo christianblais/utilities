@@ -28,7 +28,7 @@ module Utilities
   module Statistics
     # Add each object of the array to each other in order to get the sum, as long as all objects respond to + operator
     def sum
-      flatten.compact.inject( :+ )
+      empty? ? 0 : flatten.compact.inject( :+ )
     end
     
     # Calculate squares of each item
@@ -51,7 +51,7 @@ module Utilities
     # Calculate the mean of the array, as long as all objects respond to / operator
     def mean
       a = flatten.compact.to_stat
-      (a.size > 0) ? a.sum.to_f / a.size : 0.0
+      (a.size > 0) ? a.sum.to_f / a.size : nil
     end
     alias_method :average, :mean
     
@@ -62,6 +62,7 @@ module Utilities
     
     # Return the variance of self
     def variance( population = false )
+      return nil if empty?
       m = mean.to_f
       collect{|v| (v - m).square }.to_stats.sum / (size - (population ? 0 : 1))
     end
@@ -70,6 +71,7 @@ module Utilities
     # If population is set to true, then we consider the dataset as the complete population
     # Else, we consider the dataset as a sample, so we use the sample standard deviation (size - 1)
     def standard_deviation( population = false )
+      return nil if empty?
       size > 1 ? Math.sqrt( variance( population ) ) : 0.0
     end
     alias_method :std_dev, :standard_deviation
