@@ -1,7 +1,7 @@
 module Utilities
-  MAJOR = 0
+  MAJOR = 1
   MINOR = 0
-  BUILD = 23
+  BUILD = 0
 
   VERSION = "#{MAJOR}.#{MINOR}.#{BUILD}"
 end
