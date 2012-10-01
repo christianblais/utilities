@@ -179,22 +179,7 @@ describe Utilities::Statistics do
     end
   end
 
-  it "#first should returns the first element" do
-    [].first.should == nil
-    [4,3,5,1,2].first.should == 4
-  end
-
-  it "#last should returns the last element" do
-    [].last.should == nil
-    [4,3,5,1,2].last.should == 2
-  end
-
-  it "#size should returns the last element" do
-    [].size.should == 0
-    [4,3,5,1,2].size.should == 5
-  end
-
-  it "#sum should returns the last element" do
+  it "#sum should returns the sum of all elements" do
     [].sum.should == 0
     [4,3,5,1,2].sum.should == 15
   end
