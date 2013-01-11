@@ -8,6 +8,12 @@ describe Array do
     [1,2,3,4,nil].numerics?.should == false
     [1,2,3,4,nil].numerics?(true).should == true
   end
+
+  it "#clamp should returns a clamped value between a minimum and maximum value" do
+    1.clamp(2,5).should == 2
+    8.clamp(2,5).should == 5
+    3.clamp(2,5).should == 3
+  end
   
   it "#to_numerics should returns a new array with only numeric elements" do
     [].to_numerics.should == []

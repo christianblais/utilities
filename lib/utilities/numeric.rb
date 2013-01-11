@@ -8,6 +8,11 @@ class Numeric
   def square
     self * self
   end
+
+  # Return a clamped value between a minimum and maximum value
+  def clamp min, max
+    [min, self, max].sort[1]
+  end
   
   #Transform self to a string formatted time (HH:MM) Ex: 14.5 => “14:30“
   def hour_to_string delimiter = ':'
