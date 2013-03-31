@@ -8,7 +8,7 @@ Installation
 
 Test
 ----
-    rspec test/test_utilities
+    rspec
 
 Usage
 -----
